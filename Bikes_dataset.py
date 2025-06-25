@@ -73,8 +73,7 @@ def load_data():
     transaction_df = pd.read_excel("datasets/transaction.xlsx")
 
     # Process data
-    transaction_df = transaction_df.replace(" ", np.NaN)
-    # transaction_df = transaction_df.fillna(transaction_df.mean())
+    transaction_df = transaction_df.replace(" ", np.nan)
 
     # Select only numeric columns
     numeric_columns = transaction_df.select_dtypes(include=np.number).columns
