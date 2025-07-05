@@ -23,7 +23,10 @@ jobs:
       - name: Make empty commit
         run: |
           git commit --allow-empty -m "keep alive" || echo "No changes to commit"
-
+          
+      - name: Debug Git Remote
+        run: git remote -v
+        
       - name: Push commit using personal token
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
