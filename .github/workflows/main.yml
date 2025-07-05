@@ -13,23 +13,31 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          persist-credentials: false  # ⬅️ very important
+          persist-credentials: false  # important to disable default token
 
       - name: Setup git user
         run: |
           git config user.name "MathieuBK"
           git config user.email "MathieuBK@users.noreply.github.com"
 
-      - name: Make empty commit
-        run: |
-          git commit --allow-empty -m "keep alive" || echo "No changes to commit"
-          
-      - name: Debug Git Remote
-        run: git remote -v
-        
-      - name: Push commit using personal token
+      - name: Set remote URL with token
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git remote set-url origin https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}
-          git push origin HEAD 
+
+      - name: Create or switch to keep-alive branch
+        run: |
+          git checkout -B keep-alive
+
+      - name: Pull remote main with rebase
+        run: |
+          git pull origin main --rebase
+
+      - name: Commit empty keep-alive commit
+        run: |
+          git commit --allow-empty -m "keep alive" || echo "No changes to commit"
+
+      - name: Push keep-alive branch forcefully
+        run: |
+          git push origin keep-alive --force
