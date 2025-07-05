@@ -2,9 +2,9 @@ name: Keep Streamlit App Awake
 
 on:
   schedule:
-    - cron: '0 8 * * *'   # Every day at 08:00 UTC
-    - cron: '0 20 * * *'  # Every day at 20:00 UTC
-  workflow_dispatch:      # Allows manual triggering
+    - cron: '0 8 * * *'
+    - cron: '0 20 * * *'
+  workflow_dispatch:
 
 jobs:
   keep-alive:
@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          persist-credentials: false  # <- This is critical!
 
       - name: Commit empty keep-alive
         run: |
