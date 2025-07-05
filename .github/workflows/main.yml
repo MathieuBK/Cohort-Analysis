@@ -13,9 +13,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          persist-credentials: false  # <- This is critical!
+          persist-credentials: false  # ✅ THIS IS CRITICAL!
 
-      - name: Commit empty keep-alive
+      - name: Commit keep-alive
         run: |
           git config user.name "MathieuBK"
           git config user.email "MathieuBK@users.noreply.github.com"
