@@ -41,4 +41,4 @@ jobs:
           git commit -m "Keep alive update $(date -u)" || echo "No changes to commit"
 
       - name: Push to main branch
-        run: git push origin main --force 
+        run: git push origin main --force
