@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          persist-credentials: false  # disable default token
+          persist-credentials: false
 
       - name: Setup git user
         run: |
@@ -33,7 +33,8 @@ jobs:
         run: git pull origin main --rebase
 
       - name: Update keep_alive.txt with current timestamp
-        run: echo "Last keep alive: $(date -u)" > keep_alive.txt
+        run: |
+          echo "Last keep alive: $(date -u)" > keep_alive.txt
 
       - name: Add and commit update
         run: |
