@@ -2,14 +2,19 @@ name: Keep Streamlit App Awake
 
 on:
   schedule:
-    - cron: '0 8 * * *'
-    - cron: '0 20 * * *'
+    - cron: '0 1 * * *'   # 01:00 UTC
+    - cron: '0 9 * * *'   # 09:00 UTC
+    - cron: '0 17 * * *'  # 17:00 UTC
   workflow_dispatch:
 
 jobs:
   keep-alive:
     runs-on: ubuntu-latest
     steps:
+      - name: Ping Streamlit app
+        run: |
+          curl -sSf https://your-streamlit-app-url.streamlit.app || echo "App ping failed"
+
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
